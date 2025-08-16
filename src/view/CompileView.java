@@ -34,6 +34,12 @@ public class CompileView extends javax.swing.JFrame {
     public void screen() {
         showNumberedBorder();
         compileController.inputMapKeys();
+        
+        configView();
+    }
+    
+    private void configView() {
+        jToolBar.setFloatable(false);
     }
     
     private void showNumberedBorder() {
@@ -84,11 +90,15 @@ public class CompileView extends javax.swing.JFrame {
         jDivider = new javax.swing.JSplitPane(javax.swing.JSplitPane.VERTICAL_SPLIT, jEditor, jMessages);
         jScrollPaneMessages = new javax.swing.JScrollPane();
         jMessages = new javax.swing.JTextArea();
+        jStatusBar = new javax.swing.JPanel();
+        jFilePath = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1500, 800));
         setResizable(false);
 
+        jToolBar.setBorderPainted(false);
+        jToolBar.setMargin(new java.awt.Insets(0, 0, 5, 0));
         jToolBar.setPreferredSize(new java.awt.Dimension(1500, 70));
 
         jToolNewFile.setBackground(new java.awt.Color(255, 255, 255));
@@ -155,7 +165,7 @@ public class CompileView extends javax.swing.JFrame {
             jToolOpenFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jToolOpenFileLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jImageMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(jImageMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabelMenu1)
                 .addContainerGap())
@@ -299,7 +309,7 @@ public class CompileView extends javax.swing.JFrame {
             jToolCutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jToolCutLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jImageMenu12, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(jImageMenu12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabelMenu12)
                 .addContainerGap())
@@ -399,6 +409,24 @@ public class CompileView extends javax.swing.JFrame {
         jMessages.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jScrollPaneMessages.setViewportView(jMessages);
 
+        jStatusBar.setPreferredSize(new java.awt.Dimension(1500, 25));
+
+        jFilePath.setText("Nenhum arquivo selecionado");
+
+        javax.swing.GroupLayout jStatusBarLayout = new javax.swing.GroupLayout(jStatusBar);
+        jStatusBar.setLayout(jStatusBarLayout);
+        jStatusBarLayout.setHorizontalGroup(
+            jStatusBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jStatusBarLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jFilePath)
+                .addContainerGap(1324, Short.MAX_VALUE))
+        );
+        jStatusBarLayout.setVerticalGroup(
+            jStatusBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFilePath, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jMainLayout = new javax.swing.GroupLayout(jMain);
         jMain.setLayout(jMainLayout);
         jMainLayout.setHorizontalGroup(
@@ -410,7 +438,9 @@ public class CompileView extends javax.swing.JFrame {
                 .addContainerGap())
             .addComponent(jScrollPaneMessages)
             .addGroup(jMainLayout.createSequentialGroup()
-                .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jStatusBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jMainLayout.setVerticalGroup(
@@ -418,12 +448,13 @@ public class CompileView extends javax.swing.JFrame {
             .addGroup(jMainLayout.createSequentialGroup()
                 .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPaneEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                .addComponent(jScrollPaneEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDivider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPaneMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addGap(0, 0, 0)
+                .addComponent(jStatusBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -503,6 +534,7 @@ public class CompileView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSplitPane jDivider;
     private javax.swing.JTextArea jEditor;
+    private javax.swing.JLabel jFilePath;
     private javax.swing.JLabel jImageMenu;
     private javax.swing.JLabel jImageMenu1;
     private javax.swing.JLabel jImageMenu10;
@@ -523,6 +555,7 @@ public class CompileView extends javax.swing.JFrame {
     private javax.swing.JTextArea jMessages;
     private javax.swing.JScrollPane jScrollPaneEditor;
     private javax.swing.JScrollPane jScrollPaneMessages;
+    private javax.swing.JPanel jStatusBar;
     private javax.swing.JToolBar jToolBar;
     private javax.swing.JPanel jToolCompile;
     private javax.swing.JPanel jToolCopy;
