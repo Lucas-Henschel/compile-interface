@@ -652,7 +652,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jFilePath">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nenhum arquivo selecionado"/>
+                <Property name="text" type="java.lang.String" value="Caminho do arquivo: Nenhum arquivo selecionado"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[1480, 25]"/>
                 </Property>

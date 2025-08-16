@@ -5,7 +5,9 @@
 package view;
 
 import controller.CompileController;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -33,6 +35,8 @@ public class CompileView extends javax.swing.JFrame {
     
     public void screen() {
         showNumberedBorder();
+        
+        compileController.init();
         compileController.inputMapKeys();
         
         windowConfiguration();
@@ -59,6 +63,22 @@ public class CompileView extends javax.swing.JFrame {
 
     public JPanel getjMain() {
         return jMain;
+    }
+
+    public JTextArea getjEditor() {
+        return jEditor;
+    }
+
+    public JLabel getjFilePath() {
+        return jFilePath;
+    }
+    
+    public JTextArea getjMessages() {
+        return jMessages;
+    }
+    
+    public void setPathFile(String path) {
+        jFilePath.setText("Caminho do arquivo: " + path);
     }
     
     /**
@@ -424,7 +444,7 @@ public class CompileView extends javax.swing.JFrame {
 
         jStatusBar.setPreferredSize(new java.awt.Dimension(1500, 25));
 
-        jFilePath.setText("Nenhum arquivo selecionado");
+        jFilePath.setText("Caminho do arquivo: Nenhum arquivo selecionado");
         jFilePath.setPreferredSize(new java.awt.Dimension(1480, 25));
 
         javax.swing.GroupLayout jStatusBarLayout = new javax.swing.GroupLayout(jStatusBar);

@@ -11,6 +11,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import view.CompileView;
+import view.FileChooserView;
 
 /**
  *
@@ -18,6 +19,8 @@ import view.CompileView;
  */
 public class CompileController {
     public static CompileController compileController;
+    
+    private CompileView compileView;
         
     public static CompileController getCompileController() {
         if (compileController == null) {
@@ -27,9 +30,11 @@ public class CompileController {
         return compileController;
     }
     
+    public void init() {
+        compileView = CompileView.getCompileView();
+    }
+    
     public void inputMapKeys() {
-        CompileView compileView = CompileView.getCompileView();
-        
         InputMap inputMap = compileView.getjMain().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = compileView.getjMain().getActionMap();
 
@@ -99,11 +104,15 @@ public class CompileController {
     }
     
     public void toolNewFile() {
-        System.out.println("Atalho Ctrl+N acionado (Novo)");
+        compileView.getjEditor().setText("");
+        compileView.getjMessages().setText("");
+        compileView.setPathFile("Nenhum arquivo selecionado");
     }
     
     public void toolOpenFile() {
-        System.out.println("Atalho Ctrl+O acionado (Abrir)");
+        FileChooserView fileChooserView = FileChooserView.getFileChooserView();
+        fileChooserView.screen();
+        fileChooserView.setVisible(true);
     }
     
     public void toolSaveFile() {
@@ -123,10 +132,10 @@ public class CompileController {
     }
     
     public void toolCompile() {
-        System.out.println("Atalho F7 acionado (Compilar)");
+        compileView.getjMessages().setText("compilação de programas ainda não foi implementada");
     }
     
     public void toolTeam() {
-        System.out.println("Atalho F1 acionado (Equipe)");
+        compileView.getjMessages().setText("Ana Caroline Henschel\nLucas Gabriel Henschel");
     }
 }
