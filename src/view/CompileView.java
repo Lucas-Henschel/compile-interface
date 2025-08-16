@@ -35,11 +35,22 @@ public class CompileView extends javax.swing.JFrame {
         showNumberedBorder();
         compileController.inputMapKeys();
         
-        configView();
+        windowConfiguration();
     }
     
-    private void configView() {
-        jToolBar.setFloatable(false);
+    private void windowConfiguration() {
+        jToolBar.setFloatable(true);
+        
+        jSplitPane.setTopComponent(jScrollPaneEditor);
+        jSplitPane.setBottomComponent(jScrollPaneMessages);
+
+        jMain.remove(jScrollPaneEditor);
+        jMain.remove(jScrollPaneMessages);
+
+        jMain.setLayout(new java.awt.BorderLayout());
+        jMain.add(jToolBar, java.awt.BorderLayout.NORTH);
+        jMain.add(jSplitPane, java.awt.BorderLayout.CENTER);
+        jMain.add(jStatusBar, java.awt.BorderLayout.SOUTH);
     }
     
     private void showNumberedBorder() {
@@ -87,16 +98,19 @@ public class CompileView extends javax.swing.JFrame {
         jImageMenu14 = new javax.swing.JLabel();
         jScrollPaneEditor = new javax.swing.JScrollPane();
         jEditor = new javax.swing.JTextArea();
-        jDivider = new javax.swing.JSplitPane(javax.swing.JSplitPane.VERTICAL_SPLIT, jEditor, jMessages);
         jScrollPaneMessages = new javax.swing.JScrollPane();
         jMessages = new javax.swing.JTextArea();
         jStatusBar = new javax.swing.JPanel();
         jFilePath = new javax.swing.JLabel();
+        jSplitPane = new javax.swing.JSplitPane(javax.swing.JSplitPane.VERTICAL_SPLIT, jScrollPaneEditor, jScrollPaneMessages);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1500, 800));
         setResizable(false);
 
+        jMain.setBackground(new java.awt.Color(255, 255, 255));
+
+        jToolBar.setFloatable(true);
         jToolBar.setBorderPainted(false);
         jToolBar.setMargin(new java.awt.Insets(0, 0, 5, 0));
         jToolBar.setPreferredSize(new java.awt.Dimension(1500, 70));
@@ -122,7 +136,7 @@ public class CompileView extends javax.swing.JFrame {
         jToolNewFile.setLayout(jToolNewFileLayout);
         jToolNewFileLayout.setHorizontalGroup(
             jToolNewFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+            .addComponent(jLabelMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
             .addComponent(jImageMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jToolNewFileLayout.setVerticalGroup(
@@ -158,7 +172,7 @@ public class CompileView extends javax.swing.JFrame {
         jToolOpenFile.setLayout(jToolOpenFileLayout);
         jToolOpenFileLayout.setHorizontalGroup(
             jToolOpenFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelMenu1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+            .addComponent(jLabelMenu1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
             .addComponent(jImageMenu1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jToolOpenFileLayout.setVerticalGroup(
@@ -194,7 +208,7 @@ public class CompileView extends javax.swing.JFrame {
         jToolSaveFile.setLayout(jToolSaveFileLayout);
         jToolSaveFileLayout.setHorizontalGroup(
             jToolSaveFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelMenu3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+            .addComponent(jLabelMenu3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
             .addComponent(jImageMenu3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jToolSaveFileLayout.setVerticalGroup(
@@ -230,7 +244,7 @@ public class CompileView extends javax.swing.JFrame {
         jToolCopy.setLayout(jToolCopyLayout);
         jToolCopyLayout.setHorizontalGroup(
             jToolCopyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelMenu10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+            .addComponent(jLabelMenu10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
             .addComponent(jImageMenu10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jToolCopyLayout.setVerticalGroup(
@@ -266,7 +280,7 @@ public class CompileView extends javax.swing.JFrame {
         jToolPaste.setLayout(jToolPasteLayout);
         jToolPasteLayout.setHorizontalGroup(
             jToolPasteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelMenu11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+            .addComponent(jLabelMenu11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
             .addComponent(jImageMenu11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jToolPasteLayout.setVerticalGroup(
@@ -302,7 +316,7 @@ public class CompileView extends javax.swing.JFrame {
         jToolCut.setLayout(jToolCutLayout);
         jToolCutLayout.setHorizontalGroup(
             jToolCutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelMenu12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+            .addComponent(jLabelMenu12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
             .addComponent(jImageMenu12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jToolCutLayout.setVerticalGroup(
@@ -338,7 +352,7 @@ public class CompileView extends javax.swing.JFrame {
         jToolCompile.setLayout(jToolCompileLayout);
         jToolCompileLayout.setHorizontalGroup(
             jToolCompileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelMenu13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+            .addComponent(jLabelMenu13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
             .addComponent(jImageMenu13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jToolCompileLayout.setVerticalGroup(
@@ -374,7 +388,7 @@ public class CompileView extends javax.swing.JFrame {
         jToolTeam.setLayout(jToolTeamLayout);
         jToolTeamLayout.setHorizontalGroup(
             jToolTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelMenu14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+            .addComponent(jLabelMenu14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
             .addComponent(jImageMenu14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jToolTeamLayout.setVerticalGroup(
@@ -391,56 +405,56 @@ public class CompileView extends javax.swing.JFrame {
 
         jScrollPaneEditor.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPaneEditor.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPaneEditor.setViewportBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jEditor.setColumns(20);
         jEditor.setRows(5);
-        jEditor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEditor.setBorder(null);
         jScrollPaneEditor.setViewportView(jEditor);
-
-        jDivider.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jDivider.setResizeWeight(0.7);
 
         jScrollPaneMessages.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPaneMessages.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPaneMessages.setViewportBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jMessages.setEditable(false);
         jMessages.setColumns(20);
         jMessages.setRows(5);
-        jMessages.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jMessages.setBorder(null);
         jScrollPaneMessages.setViewportView(jMessages);
 
         jStatusBar.setPreferredSize(new java.awt.Dimension(1500, 25));
 
         jFilePath.setText("Nenhum arquivo selecionado");
+        jFilePath.setPreferredSize(new java.awt.Dimension(1480, 25));
 
         javax.swing.GroupLayout jStatusBarLayout = new javax.swing.GroupLayout(jStatusBar);
         jStatusBar.setLayout(jStatusBarLayout);
         jStatusBarLayout.setHorizontalGroup(
             jStatusBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jStatusBarLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jFilePath)
-                .addContainerGap(1324, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jStatusBarLayout.createSequentialGroup()
+                .addGap(0, 20, Short.MAX_VALUE)
+                .addComponent(jFilePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jStatusBarLayout.setVerticalGroup(
             jStatusBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFilePath, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+            .addComponent(jFilePath, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jSplitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane.setResizeWeight(0.8);
+        jSplitPane.setPreferredSize(new java.awt.Dimension(1500, 15));
 
         javax.swing.GroupLayout jMainLayout = new javax.swing.GroupLayout(jMain);
         jMain.setLayout(jMainLayout);
         jMainLayout.setHorizontalGroup(
             jMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPaneEditor)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jMainLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jDivider)
-                .addContainerGap())
             .addComponent(jScrollPaneMessages)
             .addGroup(jMainLayout.createSequentialGroup()
                 .addGroup(jMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jStatusBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jStatusBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSplitPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jMainLayout.setVerticalGroup(
@@ -448,11 +462,11 @@ public class CompileView extends javax.swing.JFrame {
             .addGroup(jMainLayout.createSequentialGroup()
                 .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPaneEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDivider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPaneMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSplitPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPaneMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(jStatusBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -488,7 +502,7 @@ public class CompileView extends javax.swing.JFrame {
     }//GEN-LAST:event_jToolCopyMouseClicked
 
     private void jToolPasteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToolPasteMouseClicked
-        compileController.toolPast();
+        compileController.toolPaste();
     }//GEN-LAST:event_jToolPasteMouseClicked
 
     private void jToolCutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToolCutMouseClicked
@@ -532,7 +546,6 @@ public class CompileView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JSplitPane jDivider;
     private javax.swing.JTextArea jEditor;
     private javax.swing.JLabel jFilePath;
     private javax.swing.JLabel jImageMenu;
@@ -555,6 +568,7 @@ public class CompileView extends javax.swing.JFrame {
     private javax.swing.JTextArea jMessages;
     private javax.swing.JScrollPane jScrollPaneEditor;
     private javax.swing.JScrollPane jScrollPaneMessages;
+    private javax.swing.JSplitPane jSplitPane;
     private javax.swing.JPanel jStatusBar;
     private javax.swing.JToolBar jToolBar;
     private javax.swing.JPanel jToolCompile;

@@ -56,6 +56,46 @@ public class CompileController {
                 toolSaveFile();
             }
         });
+        
+        inputMap.put(KeyStroke.getKeyStroke("control C"), "copy");
+        actionMap.put("copy", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toolCopy();
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke("control V"), "paste");
+        actionMap.put("paste", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toolPaste();
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke("control X"), "cut");
+        actionMap.put("cut", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toolCut();
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke("F7"), "compile");
+        actionMap.put("compile", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toolCompile();
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke("F1"), "team");
+        actionMap.put("team", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toolTeam();
+            }
+        });
     }
     
     public void toolNewFile() {
@@ -71,22 +111,22 @@ public class CompileController {
     }
     
     public void toolCopy() {
-        
+        System.out.println("Atalho Ctrl+C acionado (Copiar)");
     }
     
-    public void toolPast() {
-        
+    public void toolPaste() {
+        System.out.println("Atalho Ctrl+V acionado (Colar)");
     }
     
     public void toolCut() {
-        
+        System.out.println("Atalho Ctrl+X acionado (Recortar)");
     }
     
     public void toolCompile() {
-        
+        System.out.println("Atalho F7 acionado (Compilar)");
     }
     
     public void toolTeam() {
-        
+        System.out.println("Atalho F1 acionado (Equipe)");
     }
 }
