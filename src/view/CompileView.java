@@ -10,29 +10,55 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 /**
- *
- * @author lucas
+ * Interface gráfica principal do editor de código.
+ * Extende {@link javax.swing.JFrame} e fornece o editor de texto,
+ * mensagens, barra de ferramentas e barra de status.
+ * 
+ * Implementa o padrão Singleton para garantir uma única instância da janela.
+ * Também integra a {@link CompileController} para gerenciar ações do editor.
+ * 
+ * Funcionalidades:
+ * - Exibição de editor com números de linhas (via {@link NumberedBorder})
+ * - Área de mensagens
+ * - Barra de ferramentas flutuante
+ * - Controle de atalhos de teclado
+ * - Exibição do caminho do arquivo
+ * 
+ * Autor: lucas, ana
  */
 public class CompileView extends javax.swing.JFrame {
+
+    /** Instância única do CompileView (Singleton) */
     public static CompileView compileView;
     
+    /** Controlador responsável pelas ações do editor */
     private final CompileController compileController = CompileController.getCompileController();
 
     /**
-     * Creates new form CompileView
+     * Construtor da classe CompileView.
+     * Inicializa os componentes gráficos da interface.
      */
     public CompileView() {
         initComponents();
     }
     
+    /**
+     * Retorna a instância única do CompileView.
+     * Caso não exista, cria uma nova instância.
+     * 
+     * @return instância singleton de CompileView
+     */
     public static CompileView getCompileView() {
         if (compileView == null) {
             compileView = new CompileView();
         }
- 
         return compileView;
     }
     
+    /**
+     * Inicializa e exibe a interface do editor.
+     * Configura números de linhas, atalhos de teclado e layout da janela.
+     */
     public void screen() {
         showNumberedBorder();
         
@@ -42,6 +68,9 @@ public class CompileView extends javax.swing.JFrame {
         windowConfiguration();
     }
     
+    /**
+     * Configura o layout da janela, adicionando toolbar, editor, mensagens e status bar.
+     */
     private void windowConfiguration() {
         jToolBar.setFloatable(true);
         
@@ -57,26 +86,54 @@ public class CompileView extends javax.swing.JFrame {
         jMain.add(jStatusBar, java.awt.BorderLayout.SOUTH);
     }
     
+    /**
+     * Exibe a borda numerada no editor de texto.
+     */
     private void showNumberedBorder() {
         jEditor.setBorder(new NumberedBorder());
     }
 
+    /**
+     * Retorna o painel principal da interface.
+     * 
+     * @return painel principal {@link JPanel}
+     */
     public JPanel getjMain() {
         return jMain;
     }
 
+    /**
+     * Retorna o editor de texto.
+     * 
+     * @return área de texto {@link JTextArea} do editor
+     */
     public JTextArea getjEditor() {
         return jEditor;
     }
 
+    /**
+     * Retorna o label que exibe o caminho do arquivo.
+     * 
+     * @return label {@link JLabel} do caminho do arquivo
+     */
     public JLabel getjFilePath() {
         return jFilePath;
     }
     
+    /**
+     * Retorna a área de mensagens.
+     * 
+     * @return área de texto {@link JTextArea} de mensagens
+     */
     public JTextArea getjMessages() {
         return jMessages;
     }
     
+    /**
+     * Atualiza o label de caminho do arquivo.
+     * 
+     * @param path caminho do arquivo a ser exibido
+     */
     public void setPathFile(String path) {
         jFilePath.setText("Caminho do arquivo: " + path);
     }

@@ -1,45 +1,57 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package init;
 
 import view.CompileView;
 
 /**
- *
- * @author lucas
+ * Classe principal da aplicação que representa a janela principal do sistema.
+ * Estende {@link javax.swing.JFrame} e exibe a {@link CompileView}.
+ * Implementa o padrão Singleton para garantir uma única instância da janela.
+ * 
+ * @author Lucas Gabriel Henschel
  */
 public class AppView extends javax.swing.JFrame {
     
+    /** Instância única do AppView (Singleton) */
     public static AppView appView;
 
     /**
-     * Creates new form AppView
+     * Construtor da classe AppView.
+     * Inicializa os componentes gráficos e exibe a CompileView.
      */
     public AppView() {
         initComponents();
         init();
     }
     
+    /**
+     * Retorna a instância única do AppView.
+     * Caso ainda não exista, cria uma nova instância.
+     * 
+     * @return instância singleton de AppView
+     */
     public static AppView getAppView() {
         if (appView == null) {
             appView = new AppView();
         }
-        
         return appView;
     }
     
+    /**
+     * Inicializa a aplicação, exibindo a CompileView.
+     */
     private void init() {
         showCompileView();
     }
     
+    /**
+     * Exibe a janela de edição de código (CompileView) na interface.
+     */
     private void showCompileView() {
         CompileView compileView = CompileView.getCompileView();
         compileView.screen();
         compileView.setVisible(true);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
