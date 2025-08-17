@@ -127,11 +127,12 @@ public class CompileController {
     
     public void toolSaveFile() {
         if (fileHandler.getFile() != null) {
-            // salvar as informações do arquivo 
-            compileView.getjMessages().setText("");
+            fileHandler.saveContent();
         } else {
-            // abrir o modal para salvar o arquivo
+            fileHandler.createNewFile();
         }
+        
+        compileView.getjMessages().setText("");
     }
     
     public void toolCopy() {
