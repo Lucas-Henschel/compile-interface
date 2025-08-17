@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import handler.FileHandler;
@@ -17,18 +13,40 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import view.CompileView;
 import view.FileChooserView;
+import javax.swing.JTextArea;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.*;
 
 /**
- *
- * @author lucas
+ * Classe de controle do compilador.
+ * Esta classe gerencia as ações do editor de código, atalhos de teclado,
+ * operações de arquivos (abrir, salvar, criar) e interações com a interface gráfica.
+ * Implementa funcionalidades básicas como copiar, colar, cortar e simula a compilação.
+ * 
+ * @author lucas, ana
  */
 public class CompileController {
+    
+    /**
+     * Instância única da classe CompileController (Singleton).
+     */
     public static CompileController compileController;
     
+    /**
+     * Instância da view do compilador.
+     */
     private CompileView compileView;
     
+    /**
+     * Instância do handler de arquivos.
+     */
     private FileHandler fileHandler;
-        
+            
+    /**
+     * Retorna a instância única do CompileController.
+     * @return instância singleton de CompileController
+     */
     public static CompileController getCompileController() {
         if (compileController == null) {
             compileController = new CompileController();
@@ -37,11 +55,19 @@ public class CompileController {
         return compileController;
     }
     
+    /**
+     * Inicializa as dependências do controller,
+     * como a view do compilador e o handler de arquivos.
+     */
     public void init() {
         compileView = CompileView.getCompileView();
         fileHandler = FileHandler.getFileHandler();
     }
     
+    /**
+     * Configura os atalhos de teclado para as ações do editor.
+     * Suporta Ctrl+N, Ctrl+O, Ctrl+S, Ctrl+C, Ctrl+V, Ctrl+X, F7 e F1.
+     */
     public void inputMapKeys() {
         InputMap inputMap = compileView.getjMain().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = compileView.getjMain().getActionMap();
@@ -111,54 +137,111 @@ public class CompileController {
         });
     }
     
+    /**
+     * Limpa o editor, mensagens e reseta interações do arquivo.
+     * Equivalente à ação "Novo Arquivo".
+     */
     public void toolNewFile() {
         compileView.getjEditor().setText("");
         compileView.getjMessages().setText("");
         compileView.setPathFile("Nenhum arquivo selecionado");
-        
         fileHandler.resetInteractions();
     }
     
+    /**
+     * Abre a janela de seleção de arquivo.
+     * Equivalente à ação "Abrir Arquivo".
+     */
     public void toolOpenFile() {
         FileChooserView fileChooserView = FileChooserView.getFileChooserView();
         fileChooserView.screen();
         fileChooserView.setVisible(true);
     }
     
+    /**
+     * Salva o conteúdo do editor em um arquivo existente
+     * ou cria um novo arquivo caso não exista.
+     * Equivalente à ação "Salvar Arquivo".
+     */
     public void toolSaveFile() {
         if (fileHandler.getFile() != null) {
             fileHandler.saveContent();
         } else {
             fileHandler.createNewFile();
         }
-        
         compileView.getjMessages().setText("");
     }
     
+    /**
+     * Cria uma janela simples de editor de texto independente.
+     * Configura atalhos de copiar, cortar e colar via Ctrl.
+     */
+    public void criarEditor() {
+        JFrame frame = new JFrame("Editor Simples");
+        JTextArea textArea = new JTextArea(10, 40);
+
+        textArea.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.isControlDown()) {
+                    switch (e.getKeyCode()) {
+                        case KeyEvent.VK_C: toolCopy(); break;   
+                        case KeyEvent.VK_X: toolCut(); break;
+                        case KeyEvent.VK_V: toolPaste(); break;   
+                    }
+                }
+            }
+        });
+
+        frame.add(new JScrollPane(textArea));
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    } 
+    
+    /**
+     * Copia o texto selecionado do editor para a área de transferência.
+     */
     public void toolCopy() {
-        System.out.println("Atalho Ctrl+C acionado (Copiar)");
+        compileView.getjEditor().copy();
     }
     
+    /**
+     * Cola o conteúdo da área de transferência no editor.
+     */
     public void toolPaste() {
-        System.out.println("Atalho Ctrl+V acionado (Colar)");
+        compileView.getjEditor().paste();
     }
     
+    /**
+     * Corta o texto selecionado do editor e envia para a área de transferência.
+     */
     public void toolCut() {
-        System.out.println("Atalho Ctrl+X acionado (Recortar)");
+        compileView.getjEditor().cut();
     }
     
+    /**
+     * Simula a compilação do código exibindo mensagem no editor.
+     */
     public void toolCompile() {
         compileView.getjMessages().setText("compilação de programas ainda não foi implementada");
     }
     
+    /**
+     * Exibe os nomes da equipe responsável pelo projeto.
+     */
     public void toolTeam() {
         compileView.getjMessages().setText("Ana Caroline Henschel\nLucas Gabriel Henschel");
     }
     
+    /**
+     * Preenche o editor com o conteúdo do arquivo atual
+     * e atualiza o caminho do arquivo exibido na interface.
+     * Mostra mensagem de erro caso não seja possível ler o arquivo.
+     */
     public void fillWindow() {
         try {
             String fileContent = new String(Files.readAllBytes(fileHandler.getFile().toPath()), StandardCharsets.UTF_8);
-
             compileView.setPathFile(fileHandler.getFile().getAbsolutePath());
             compileView.getjEditor().setText(fileContent);
             compileView.getjMessages().setText("");
