@@ -1,0 +1,24 @@
+# arquivos compilados
+*.class
+
+# diretórios de build do Ant
+build/
+dist/
+
+# arquivos de log
+*.log
+
+# arquivos temporários de IDEs
+/.idea/
+/*.iml
+/.classpath
+/.project
+/.settings/
+
+# arquivos temporários do sistema operacional
+.DS_Store
+Thumbs.db
+
+# arquivos de backup do editor
+*~
+*.bak

@@ -52,6 +52,7 @@ public class CompileView extends javax.swing.JFrame {
         if (compileView == null) {
             compileView = new CompileView();
         }
+        
         return compileView;
     }
     

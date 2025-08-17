@@ -42,6 +42,7 @@ public class FileChooserView extends javax.swing.JFrame {
         if (fileChooserView == null) {
             fileChooserView = new FileChooserView();
         }
+        
         return fileChooserView;
     }
 

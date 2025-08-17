@@ -13,10 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import view.CompileView;
 import view.FileChooserView;
-import javax.swing.JTextArea;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.*;
 
 /**
  * Classe de controle do compilador.
@@ -145,6 +141,7 @@ public class CompileController {
         compileView.getjEditor().setText("");
         compileView.getjMessages().setText("");
         compileView.setPathFile("Nenhum arquivo selecionado");
+        
         fileHandler.resetInteractions();
     }
     
@@ -169,35 +166,9 @@ public class CompileController {
         } else {
             fileHandler.createNewFile();
         }
+        
         compileView.getjMessages().setText("");
     }
-    
-    /**
-     * Cria uma janela simples de editor de texto independente.
-     * Configura atalhos de copiar, cortar e colar via Ctrl.
-     */
-    public void criarEditor() {
-        JFrame frame = new JFrame("Editor Simples");
-        JTextArea textArea = new JTextArea(10, 40);
-
-        textArea.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.isControlDown()) {
-                    switch (e.getKeyCode()) {
-                        case KeyEvent.VK_C: toolCopy(); break;   
-                        case KeyEvent.VK_X: toolCut(); break;
-                        case KeyEvent.VK_V: toolPaste(); break;   
-                    }
-                }
-            }
-        });
-
-        frame.add(new JScrollPane(textArea));
-        frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    } 
     
     /**
      * Copia o texto selecionado do editor para a área de transferência.
@@ -242,6 +213,7 @@ public class CompileController {
     public void fillWindow() {
         try {
             String fileContent = new String(Files.readAllBytes(fileHandler.getFile().toPath()), StandardCharsets.UTF_8);
+            
             compileView.setPathFile(fileHandler.getFile().getAbsolutePath());
             compileView.getjEditor().setText(fileContent);
             compileView.getjMessages().setText("");

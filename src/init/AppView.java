@@ -7,7 +7,7 @@ import view.CompileView;
  * Estende {@link javax.swing.JFrame} e exibe a {@link CompileView}.
  * Implementa o padrão Singleton para garantir uma única instância da janela.
  * 
- * @author Lucas Gabriel Henschel
+ * @author lucas
  */
 public class AppView extends javax.swing.JFrame {
     
