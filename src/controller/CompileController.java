@@ -4,11 +4,16 @@
  */
 package controller;
 
+import handler.FileHandler;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import view.CompileView;
 import view.FileChooserView;
@@ -21,6 +26,8 @@ public class CompileController {
     public static CompileController compileController;
     
     private CompileView compileView;
+    
+    private FileHandler fileHandler;
         
     public static CompileController getCompileController() {
         if (compileController == null) {
@@ -32,6 +39,7 @@ public class CompileController {
     
     public void init() {
         compileView = CompileView.getCompileView();
+        fileHandler = FileHandler.getFileHandler();
     }
     
     public void inputMapKeys() {
@@ -107,6 +115,8 @@ public class CompileController {
         compileView.getjEditor().setText("");
         compileView.getjMessages().setText("");
         compileView.setPathFile("Nenhum arquivo selecionado");
+        
+        fileHandler.resetInteractions();
     }
     
     public void toolOpenFile() {
@@ -116,7 +126,12 @@ public class CompileController {
     }
     
     public void toolSaveFile() {
-        System.out.println("Atalho Ctrl+S acionado (Salvar)");
+        if (fileHandler.getFile() != null) {
+            // salvar as informações do arquivo 
+            compileView.getjMessages().setText("");
+        } else {
+            // abrir o modal para salvar o arquivo
+        }
     }
     
     public void toolCopy() {
@@ -137,5 +152,18 @@ public class CompileController {
     
     public void toolTeam() {
         compileView.getjMessages().setText("Ana Caroline Henschel\nLucas Gabriel Henschel");
+    }
+    
+    public void fillWindow() {
+        try {
+            String fileContent = new String(Files.readAllBytes(fileHandler.getFile().toPath()), StandardCharsets.UTF_8);
+
+            compileView.setPathFile(fileHandler.getFile().getAbsolutePath());
+            compileView.getjEditor().setText(fileContent);
+            compileView.getjMessages().setText("");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao ler o arquivo: " + ex.getMessage());
+        }
     }
 }

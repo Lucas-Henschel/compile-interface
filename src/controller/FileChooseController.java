@@ -4,44 +4,45 @@
  */
 package controller;
 
+import handler.FileHandler;
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import view.CompileView;
 import view.FileChooserView;
 
 /**
  * Controlador responsável por gerenciar a seleção e leitura de arquivos.
  */
-public class FileController {
+public class FileChooseController {
 
     /**
-     * Instância singleton do FileController.
+     * Instância singleton do FileChooseController.
      */
-    public static FileController fileController;
+    public static FileChooseController fileController;
 
+    /**
+     * Instância para o gerenciamento do arquivo.
+     */
+    private final FileHandler fileHandler = FileHandler.getFileHandler();
+    
+    /**
+     * Instância do controller do compilador.
+     */
+    private final CompileController compileController = CompileController.getCompileController();
+    
     /**
      * Componente de seleção de arquivos.
      */
     private JFileChooser jFileChooser;
 
     /**
-     * Caminho absoluto do arquivo selecionado.
-     */
-    private String absolutePath;
-
-    /**
-     * Retorna a instância singleton de {@code FileController}.
+     * Retorna a instância singleton de {@code FileChooseController}.
      *
-     * @return instância de {@code FileController}
+     * @return instância de {@code FileChooseController}
      */
-    public static FileController getFileController() {
+    public static FileChooseController getFileController() {
         if (fileController == null) {
-            fileController = new FileController();
+            fileController = new FileChooseController();
         }
         
         return fileController;
@@ -61,13 +62,6 @@ public class FileController {
     }
 
     /**
-     * Reseta o caminho absoluto.
-     */
-    public void resetInteractions() {
-        absolutePath = "";
-    }
-
-    /**
      * Inicia o listener responsável por tratar a seleção de arquivos.
      * Após a seleção, atualiza a interface e chama o tratamento do arquivo.
      */
@@ -77,21 +71,9 @@ public class FileController {
         jFileChooser.addActionListener(e -> {
             if (JFileChooser.APPROVE_SELECTION.equals(e.getActionCommand())) {
                 File selectedFile = jFileChooser.getSelectedFile();
-                setAbsolutePath(selectedFile.getAbsolutePath());
+                fileHandler.setFile(selectedFile);
                 
-                try {
-                    String fileContent = new String(Files.readAllBytes(selectedFile.toPath()), StandardCharsets.UTF_8);
-
-                    CompileView compileView = CompileView.getCompileView();
-                    compileView.setPathFile(absolutePath);
-
-                    compileView.getjEditor().setText(fileContent);
-                    compileView.getjMessages().setText("");
-
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Erro ao ler o arquivo: " + ex.getMessage());
-                }
+                compileController.fillWindow();
             }
             
             FileChooserView.getFileChooserView().dispose();
@@ -114,23 +96,5 @@ public class FileController {
      */
     public void setjFileChooser(JFileChooser jFileChooser) {
         this.jFileChooser = jFileChooser;
-    }
-
-    /**
-     * Retorna o caminho absoluto do arquivo selecionado.
-     *
-     * @return caminho absoluto do arquivo
-     */
-    public String getAbsolutePath() {
-        return absolutePath;
-    }
-
-    /**
-     * Define o caminho absoluto do arquivo selecionado.
-     *
-     * @param absolutePath novo caminho absoluto
-     */
-    public void setAbsolutePath(String absolutePath) {
-        this.absolutePath = absolutePath;
     }
 }

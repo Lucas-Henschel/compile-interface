@@ -4,10 +4,11 @@
  */
 package view;
 
-import controller.FileController;
+import controller.FileChooseController;
+import handler.FileHandler;
 
 /**
- * Interface gráfica para seleção de arquivos, integrada com FileController para tratamento da escolha do usuário.
+ * Interface gráfica para seleção de arquivos, integrada com FileChooseController para tratamento da escolha do usuário.
  */
 public class FileChooserView extends javax.swing.JFrame {
     /**
@@ -18,7 +19,12 @@ public class FileChooserView extends javax.swing.JFrame {
     /**
      * Controlador responsável pela seleção e tratamento dos arquivos.
      */
-    private final FileController fileController = FileController.getFileController();
+    private final FileChooseController fileController = FileChooseController.getFileController();
+    
+    /**
+     * Instância para o gerenciamento do arquivo.
+     */
+    private final FileHandler fileHandler = FileHandler.getFileHandler();
 
     /**
      * Construtor que inicializa os componentes da interface.
@@ -51,7 +57,7 @@ public class FileChooserView extends javax.swing.JFrame {
      * Reseta as interações no controller associadas à seleção de arquivo.
      */
     public void resetInteractions() {
-        fileController.resetInteractions();
+        fileHandler.resetInteractions();
     }
 
     /**
