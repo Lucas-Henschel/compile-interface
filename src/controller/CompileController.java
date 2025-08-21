@@ -202,7 +202,7 @@ public class CompileController {
      * Exibe os nomes da equipe responsável pelo projeto.
      */
     public void toolTeam() {
-        compileView.getjMessages().setText("Ana Caroline Henschel\nLucas Gabriel Henschel");
+        compileView.getjMessages().setText("Ana Caroline Henschel\nFrederico Rudolf Uesler\nLucas Gabriel Henschel");
     }
     
     /**
