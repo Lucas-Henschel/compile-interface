@@ -187,8 +187,8 @@ public class CompileView extends javax.swing.JFrame {
         setResizable(false);
 
         jMain.setBackground(new java.awt.Color(255, 255, 255));
+        jMain.setPreferredSize(new java.awt.Dimension(1500, 800));
 
-        jToolBar.setFloatable(true);
         jToolBar.setBorderPainted(false);
         jToolBar.setMargin(new java.awt.Insets(0, 0, 5, 0));
         jToolBar.setPreferredSize(new java.awt.Dimension(1500, 70));
@@ -544,7 +544,7 @@ public class CompileView extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jSplitPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPaneMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addComponent(jScrollPaneMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(jStatusBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
