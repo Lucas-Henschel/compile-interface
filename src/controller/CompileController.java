@@ -1,5 +1,9 @@
 package controller;
 
+import gals.Constants;
+import gals.Lexico;
+import gals.Token;
+import gals.exceptions.LexicalError;
 import handler.FileHandler;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -195,7 +199,107 @@ public class CompileController {
      * Simula a compilação do código exibindo mensagem no editor.
      */
     public void toolCompile() {
-        compileView.getjMessages().setText("compilação de programas ainda não foi implementada");
+        compileView.getjMessages().setText("");
+        
+        Lexico lexico = new Lexico();
+        lexico.setInput(compileView.getjEditor().getText());
+        
+        try {
+            Token t = null;
+            
+            compileView.getjMessages().setText("linha       classe                          lexema\n");
+            
+            int row = 1;
+            
+            while ( (t = lexico.nextToken()) != null ) {
+                String info = row + "              " + getClassLexama(t.getId()) + "       " + t.getLexeme() + "\n";
+                
+                compileView.getjMessages().setText(
+                    compileView.getjMessages().getText() +
+                    info
+                );
+                
+                // só escreve o lexema, necessário escrever t.getId, t.getPosition()
+
+                // t.getId () - retorna o identificador da classe (ver Constants.java) 
+                // necessário adaptar, pois deve ser apresentada a classe por extenso
+
+                // t.getPosition () - retorna a posição inicial do lexema no editor 
+                // necessário adaptar para mostrar a linha	
+
+                // esse código apresenta os tokens enquanto não ocorrer erro
+                // no entanto, os tokens devem ser apresentados SÓ se não ocorrer erro,
+                // necessário adaptar para atender o que foi solicitado		   
+            }
+            
+            compileView.getjMessages().setText(
+                compileView.getjMessages().getText() +
+                "\nprograma compilado com sucesso"
+            );
+        } catch (LexicalError e) {           
+           compileView.getjMessages().setText("linha " + e.getPosition() + ": " + e.getMessage());
+
+           // e.getMessage() - retorna a mensagem de erro de SCANNER_ERRO (ver ScannerConstants.java)
+           // necessário adaptar conforme o enunciado da parte 2
+
+           // e.getPosition() - retorna a posição inicial do erro 
+           // necessário adaptar para mostrar a linha  
+        } 
+        
+    }
+    
+    private String getClassLexama(int id) {
+        switch (id) {
+            case Constants.t_identificador:
+                return "identificador";
+            case Constants.t_cint:
+                return "constante_int";
+            case Constants.t_cfloat:
+                return "constante_float";
+            case Constants.t_cstring:
+                return "constante_string";
+            case Constants.t_TOKEN_29:
+            case Constants.t_TOKEN_30:
+            case Constants.t_TOKEN_31:
+            case Constants.t_TOKEN_32:
+            case Constants.t_TOKEN_33:
+            case Constants.t_TOKEN_34:
+            case Constants.t_TOKEN_35:
+            case Constants.t_TOKEN_36:
+            case Constants.t_TOKEN_37:
+            case Constants.t_TOKEN_38:
+            case Constants.t_TOKEN_39:
+            case Constants.t_TOKEN_40:
+            case Constants.t_TOKEN_41:
+            case Constants.t_TOKEN_42:
+                return "símbolo especial";
+            case Constants.t_pr_add:
+            case Constants.t_pr_and:
+            case Constants.t_pr_begin:
+            case Constants.t_pr_bool:
+            case Constants.t_pr_count:
+            case Constants.t_pr_delete:
+            case Constants.t_pr_do:
+            case Constants.t_pr_elementOf:
+            case Constants.t_pr_else:
+            case Constants.t_pr_end:
+            case Constants.t_pr_false:
+            case Constants.t_pr_float:
+            case Constants.t_pr_if:
+            case Constants.t_pr_int:
+            case Constants.t_pr_list:
+            case Constants.t_pr_not:
+            case Constants.t_pr_or:
+            case Constants.t_pr_print:
+            case Constants.t_pr_read:
+            case Constants.t_pr_size:
+            case Constants.t_pr_string:
+            case Constants.t_pr_true:
+            case Constants.t_pr_until:
+                return "palavra reservada";
+            default:
+                return "";
+        }
     }
     
     /**

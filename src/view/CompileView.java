@@ -195,7 +195,7 @@ public class CompileView extends javax.swing.JFrame {
 
         jToolNewFile.setBackground(new java.awt.Color(255, 255, 255));
         jToolNewFile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToolNewFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToolNewFile.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToolNewFile.setPreferredSize(new java.awt.Dimension(120, 60));
         jToolNewFile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -231,7 +231,7 @@ public class CompileView extends javax.swing.JFrame {
 
         jToolOpenFile.setBackground(new java.awt.Color(255, 255, 255));
         jToolOpenFile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToolOpenFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToolOpenFile.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToolOpenFile.setPreferredSize(new java.awt.Dimension(120, 60));
         jToolOpenFile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -267,7 +267,7 @@ public class CompileView extends javax.swing.JFrame {
 
         jToolSaveFile.setBackground(new java.awt.Color(255, 255, 255));
         jToolSaveFile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToolSaveFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToolSaveFile.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToolSaveFile.setPreferredSize(new java.awt.Dimension(120, 60));
         jToolSaveFile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -303,7 +303,7 @@ public class CompileView extends javax.swing.JFrame {
 
         jToolCopy.setBackground(new java.awt.Color(255, 255, 255));
         jToolCopy.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToolCopy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToolCopy.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToolCopy.setPreferredSize(new java.awt.Dimension(120, 60));
         jToolCopy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -339,7 +339,7 @@ public class CompileView extends javax.swing.JFrame {
 
         jToolPaste.setBackground(new java.awt.Color(255, 255, 255));
         jToolPaste.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToolPaste.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToolPaste.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToolPaste.setPreferredSize(new java.awt.Dimension(120, 60));
         jToolPaste.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -375,7 +375,7 @@ public class CompileView extends javax.swing.JFrame {
 
         jToolCut.setBackground(new java.awt.Color(255, 255, 255));
         jToolCut.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToolCut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToolCut.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToolCut.setPreferredSize(new java.awt.Dimension(120, 60));
         jToolCut.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -411,7 +411,7 @@ public class CompileView extends javax.swing.JFrame {
 
         jToolCompile.setBackground(new java.awt.Color(255, 255, 255));
         jToolCompile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToolCompile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToolCompile.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToolCompile.setPreferredSize(new java.awt.Dimension(120, 60));
         jToolCompile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -447,7 +447,7 @@ public class CompileView extends javax.swing.JFrame {
 
         jToolTeam.setBackground(new java.awt.Color(255, 255, 255));
         jToolTeam.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToolTeam.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToolTeam.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToolTeam.setPreferredSize(new java.awt.Dimension(120, 60));
         jToolTeam.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -561,6 +561,7 @@ public class CompileView extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToolNewFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToolNewFileMouseClicked
