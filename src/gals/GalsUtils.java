@@ -5,10 +5,19 @@
 package gals;
 
 /**
- *
+ * Classe utilitária contendo métodos auxiliares para análise léxica.
+ * 
  * @author lucas
  */
 public class GalsUtils {
+    
+    /**
+     * Retorna a classe léxica (tipo) de um token dado o seu ID.
+     *
+     * @param id o ID do token (definido na classe Constants)
+     * @return a representação textual da classe léxica do token; retorna
+     *         uma string vazia se o ID não corresponder a nenhuma classe conhecida
+     */
     public static String getClassLexama(int id) {
         switch (id) {
             case Constants.t_identificador:
@@ -63,6 +72,13 @@ public class GalsUtils {
         }
     }
     
+    /**
+     * Retorna a linha do texto correspondente à posição informada.
+     *
+     * @param input o texto completo
+     * @param position a posição do caractere dentro do texto
+     * @return o número da linha correspondente à posição
+     */
     public static int getLineFromPosition(String input, int position) {
         int line = 1;
         
@@ -75,6 +91,14 @@ public class GalsUtils {
         return line;
     }
     
+    /**
+     * Retorna o lexema incorreto ou inválido a partir de uma posição no texto.
+     *
+     * @param input o texto completo
+     * @param pos a posição inicial do lexema no texto
+     * @return o lexema inválido encontrado; retorna string vazia se a posição
+     *         estiver fora do intervalo do texto
+     */
     public static String getWrongLexeme(String input, int pos) {
         if (pos < 0 || pos >= input.length()) return "";
 

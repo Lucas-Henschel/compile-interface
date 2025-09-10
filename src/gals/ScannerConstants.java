@@ -1,7 +1,6 @@
 package gals;
 
-public interface ScannerConstants
-{
+public interface ScannerConstants {
     int[] SCANNER_TABLE_INDEXES = 
     {
         0,

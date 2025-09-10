@@ -1,7 +1,6 @@
 package gals;
 
-public interface Constants extends ScannerConstants
-{
+public interface Constants extends ScannerConstants {
     int EPSILON  = 0;
     int DOLLAR   = 1;
 

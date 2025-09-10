@@ -1,7 +1,6 @@
 package gals.exceptions;
 
-public class LexicalError extends AnalysisError
-{
+public class LexicalError extends AnalysisError {
     public LexicalError(String msg, int position) {
         super(msg, position);
     }
