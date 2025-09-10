@@ -496,6 +496,7 @@ public class CompileView extends javax.swing.JFrame {
 
         jMessages.setEditable(false);
         jMessages.setColumns(20);
+        jMessages.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jMessages.setRows(5);
         jMessages.setBorder(null);
         jScrollPaneMessages.setViewportView(jMessages);
