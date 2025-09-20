@@ -222,7 +222,8 @@ public class CompileController {
                 ));
             }
             
-            sb.append("\nprograma compilado com sucesso");
+            sb.append("\n");
+            sb.append(String.format("%-10s %-25s %-20s%n", "", "programa compilado com sucesso", ""));
             compileView.getjMessages().setText(sb.toString());
         } catch (LexicalError e) {
             String input = compileView.getjEditor().getText();
