@@ -1,10 +1,13 @@
 package controller;
 
-import gals.Constants;
+import gals.Sintatico;
 import gals.GalsUtils;
 import gals.Lexico;
+import gals.Semantico;
 import gals.Token;
 import gals.exceptions.LexicalError;
+import gals.exceptions.SemanticError;
+import gals.exceptions.SyntaticError;
 import handler.FileHandler;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -201,30 +204,17 @@ public class CompileController {
      */
     public void toolCompile() {
         compileView.getjMessages().setText("");
-        
+       
         Lexico lexico = new Lexico();
+        Sintatico sintatico = new Sintatico();
+        Semantico semantico = new Semantico();
+        
         lexico.setInput(compileView.getjEditor().getText());
         
         try {
-            Token t = null;
-            StringBuilder sb = new StringBuilder();
+            sintatico.parse(lexico, semantico);
 
-            sb.append(String.format("%-10s %-25s %-20s%n", "linha", "classe", "lexema"));
-            
-            while ( (t = lexico.nextToken()) != null ) {
-                String input = compileView.getjEditor().getText();
-                int line = GalsUtils.getLineFromPosition(input, t.getPosition());
-                
-                sb.append(String.format("%-10d %-25s %-20s%n",
-                    line,
-                    GalsUtils.getClassLexama(t.getId()),
-                    t.getLexeme()
-                ));
-            }
-            
-            sb.append("\n");
-            sb.append(String.format("%-10s %-25s %-20s%n", "", "programa compilado com sucesso", ""));
-            compileView.getjMessages().setText(sb.toString());
+            compileView.getjMessages().setText("programa compilado com sucesso");
         } catch (LexicalError e) {
             String input = compileView.getjEditor().getText();
             int pos = e.getPosition();
@@ -240,7 +230,30 @@ public class CompileController {
             }
 
             compileView.getjMessages().setText(messageToShow);
-        } 
+        } catch (SyntaticError e) {
+            System.out.println(e.getMessage() + " em " + e.getPosition());
+            
+            String input = compileView.getjEditor().getText();
+            int pos = e.getPosition();
+            int line = GalsUtils.getLineFromPosition(input, pos);
+            
+            String lexeme = GalsUtils.getWrongLexeme(input, pos);
+
+            StringBuilder sb = new StringBuilder();
+            
+            sb
+                .append("linha ")
+                .append(line)
+                .append(": ")
+                .append("encontrado ")
+                .append(lexeme)
+                .append(" esperado ")
+                .append(e.getMessage());
+            
+            compileView.getjMessages().setText(sb.toString());
+        } catch (SemanticError e) {
+           // trata erros semânticos na parte 4
+        }
     }
     
     /**
