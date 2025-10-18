@@ -67,6 +67,8 @@ public class GalsUtils {
             case Constants.t_pr_true:
             case Constants.t_pr_until:
                 return "palavra reservada";
+            case Constants.DOLLAR:
+                return "EOF";
             default:
                 return "";
         }

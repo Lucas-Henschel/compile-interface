@@ -217,36 +217,41 @@ public class CompileController {
             compileView.getjMessages().setText("programa compilado com sucesso");
         } catch (LexicalError e) {
             String input = compileView.getjEditor().getText();
+            
             int pos = e.getPosition();
             int line = GalsUtils.getLineFromPosition(input, pos);
+            
             String msg = e.getMessage();
 
             String messageToShow;
             if (msg.equals("símbolo inválido")) {
-                String wrongLexeme = GalsUtils.getWrongLexeme(input, pos);
+                String wrongLexeme = sintatico.getCurrentToken().getLexeme();
                 messageToShow = String.format("linha %d: %s %s", line, wrongLexeme, msg);
             } else {
                 messageToShow = String.format("linha %d: %s", line, msg);
             }
 
             compileView.getjMessages().setText(messageToShow);
-        } catch (SyntaticError e) {
-            System.out.println(e.getMessage() + " em " + e.getPosition());
-            
+        } catch (SyntaticError e) {            
             String input = compileView.getjEditor().getText();
+            
             int pos = e.getPosition();
             int line = GalsUtils.getLineFromPosition(input, pos);
+            String classLexama = GalsUtils.getClassLexama(sintatico.getCurrentToken().getId());
             
-            String lexeme = GalsUtils.getWrongLexeme(input, pos);
-
             StringBuilder sb = new StringBuilder();
+            String foundValue = sintatico.getCurrentToken().getLexeme();
+            
+            if ("EOF".equals(classLexama) || "constante_string".equals(classLexama)) {                
+                foundValue = classLexama;
+            }
             
             sb
                 .append("linha ")
                 .append(line)
                 .append(": ")
                 .append("encontrado ")
-                .append(lexeme)
+                .append(foundValue)
                 .append(" esperado ")
                 .append(e.getMessage());
             
