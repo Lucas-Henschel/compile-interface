@@ -11,6 +11,7 @@ import gals.exceptions.SyntaticError;
 import handler.FileHandler;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import javax.swing.AbstractAction;
