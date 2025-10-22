@@ -1,17 +1,15 @@
 package controller;
 
 import gals.Sintatico;
-import gals.GalsUtils;
+import utility.GalsUtils;
 import gals.Lexico;
 import gals.Semantico;
-import gals.Token;
 import gals.exceptions.LexicalError;
 import gals.exceptions.SemanticError;
 import gals.exceptions.SyntaticError;
 import handler.FileHandler;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import javax.swing.AbstractAction;
@@ -226,7 +224,7 @@ public class CompileController {
 
             String messageToShow;
             if (msg.equals("símbolo inválido")) {
-                String wrongLexeme = sintatico.getCurrentToken().getLexeme();
+                String wrongLexeme = GalsUtils.getWrongLexeme(input, pos);
                 messageToShow = String.format("linha %d: %s %s", line, wrongLexeme, msg);
             } else {
                 messageToShow = String.format("linha %d: %s", line, msg);
@@ -253,7 +251,7 @@ public class CompileController {
                 .append(": ")
                 .append("encontrado ")
                 .append(foundValue)
-                .append(" esperado ")
+                .append(" ")
                 .append(e.getMessage());
             
             compileView.getjMessages().setText(sb.toString());

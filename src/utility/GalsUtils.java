@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gals;
+package utility;
+
+import gals.Constants;
 
 /**
  * Classe utilitária contendo métodos auxiliares para análise léxica.
@@ -103,14 +105,7 @@ public class GalsUtils {
      */
     public static String getWrongLexeme(String input, int pos) {
         if (pos < 0 || pos >= input.length()) return "";
-
-        int start = pos;
-        int end = pos;
-
-        while (end < input.length() && !Character.isWhitespace(input.charAt(end))) {
-            end++;
-        }
-
-        return input.substring(start, end);
+        
+        return String.valueOf(input.charAt(pos));
     }
 }

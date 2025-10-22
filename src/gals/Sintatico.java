@@ -113,4 +113,8 @@ public class Sintatico implements Constants
     public Token getCurrentToken() {
         return currentToken;
     }
+
+    public Token getPreviousToken() {
+        return previousToken;
+    }
 }
