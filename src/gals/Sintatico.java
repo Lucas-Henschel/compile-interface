@@ -1,8 +1,8 @@
 package gals;
 
-import gals.exceptions.LexicalError;
 import gals.exceptions.SemanticError;
 import gals.exceptions.SyntaticError;
+import gals.exceptions.LexicalError;
 import java.util.Stack;
 
 public class Sintatico implements Constants
@@ -112,9 +112,5 @@ public class Sintatico implements Constants
 
     public Token getCurrentToken() {
         return currentToken;
-    }
-
-    public Token getPreviousToken() {
-        return previousToken;
     }
 }

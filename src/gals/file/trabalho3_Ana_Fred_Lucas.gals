@@ -7,7 +7,7 @@ ParserName = Sintatico
 SemanticName = Semantico
 ScannerCaseSensitive = true
 ScannerTable = Compact
-Input = String
+Input = Stream
 Parser = LL
 #RegularDefinitions
 mai:[A-Z]
@@ -131,15 +131,13 @@ pr_until = identificador: "until"
 #Grammar
 <program> ::= pr_begin <lista_instrucao> pr_end ;
 
-// <lista_instrucao> ::= <instrucao> ";" | <instrucao> ";" <lista_instrucao> ;
 <lista_instrucao> ::= <instrucao> ";" <lista_instrucao1> ;
 <lista_instrucao1> ::= î | <lista_instrucao> ;
 
 <instrucao> ::= <dec_var> | <comando> ;
 
-// <comando> ::= <atribuicao> | <manipulacao_lista> | <entrada_dados> | <saida_dados> | <comando_selecao> | <comandos_repeticao> ;
-<comando> ::= <comando1> | <entrada_dados> | <saida_dados> | <comando_selecao> | <comandos_repeticao> ;
-<comando1> ::= identificador <atribuicao> | <manipulacao_lista> ;
+<comando> ::= identificador <comando1> | <entrada_dados> | <saida_dados> | <comando_selecao> | <comandos_repeticao> ;
+<comando1> ::= <atribuicao> | <manipulacao_lista> ;
 
 <dec_var> ::= <dec_tipo> <lista_identificador> ;
 
@@ -147,11 +145,9 @@ pr_until = identificador: "until"
 
 <tipo> ::= pr_int | pr_float | pr_string | pr_bool ;
 
-// <lista_identificador> ::= identificador | identificador "," <lista_identificador> ;
 <lista_identificador> ::= identificador <lista_identificador1> ;
 <lista_identificador1> ::= î | "," <lista_identificador> ;
 
-// <atribuicao> ::= identificador "=" <expressao> | identificador "<-" <expressao> ;
 <atribuicao> ::=  "=" <expressao> | "<-" <expressao> ;
 
 <manipulacao_lista> ::= pr_add "(" <elemento> "," <posicao> ")" | pr_delete "(" <posicao> ")" ;
@@ -161,7 +157,6 @@ pr_until = identificador: "until"
 
 <entrada_dados> ::= pr_read "(" <lista_entrada> ")" ;
 
-// <lista_entrada> ::= <dec_string> identificador | <dec_string> identificador "," <lista_entrada> ;
 <lista_entrada> ::= <dec_string> identificador <lista_entrada1> ;
 <lista_entrada1> ::= î | "," <lista_entrada> ;
 
@@ -169,13 +164,11 @@ pr_until = identificador: "until"
 
 <saida_dados> ::= pr_print "(" <lista_expressao> ")" ;
 
-// <lista_expressao> ::= <expressao> | <expressao> "," <lista_expressao> ;
 <lista_expressao> ::= <expressao> <lista_expressao1> ;
 <lista_expressao1> ::= î | "," <lista_expressao> ;
 
 <comando_selecao> ::= pr_if <expressao> <lista_comando> <else_opc> pr_end ;
 
-// <lista_comando> ::= <comando> ";"| <comando> ";" <lista_comando> ;
 <lista_comando> ::= <comando> ";" <lista_comando1> ;
 <lista_comando1> ::= î | <lista_comando> ;
 
@@ -212,7 +205,5 @@ pr_until = identificador: "until"
  "-" <fator> ;
 
 <fator_> ::= î | pr_count | pr_size | pr_elementOf "(" <expressao> ")" ;
-
-
 
 

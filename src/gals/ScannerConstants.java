@@ -1012,5 +1012,4 @@ public interface ScannerConstants
         "",
         ""
     };
-
 }
