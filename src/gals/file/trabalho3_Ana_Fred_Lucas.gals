@@ -7,7 +7,7 @@ ParserName = Sintatico
 SemanticName = Semantico
 ScannerCaseSensitive = true
 ScannerTable = Compact
-Input = Stream
+Input = String
 Parser = LL
 #RegularDefinitions
 mai:[A-Z]
@@ -129,7 +129,7 @@ pr_until = identificador: "until"
 <fator>
 <fator_>
 #Grammar
-<program> ::= pr_begin <lista_instrucao> pr_end ;
+<program> ::= #100 pr_begin <lista_instrucao> pr_end #101 ;
 
 <lista_instrucao> ::= <instrucao> ";" <lista_instrucao1> ;
 <lista_instrucao1> ::= î | <lista_instrucao> ;
@@ -164,7 +164,7 @@ pr_until = identificador: "until"
 
 <saida_dados> ::= pr_print "(" <lista_expressao> ")" ;
 
-<lista_expressao> ::= <expressao> <lista_expressao1> ;
+<lista_expressao> ::= <expressao> #102 <lista_expressao1> ;
 <lista_expressao1> ::= î | "," <lista_expressao> ;
 
 <comando_selecao> ::= pr_if <expressao> <lista_comando> <else_opc> pr_end ;
@@ -197,9 +197,9 @@ pr_until = identificador: "until"
 <termo_> ::= î | "*" <fator> <termo_> | "/" <fator> <termo_> ;
 
 <fator> ::= identificador <fator_> |
- cint |
- cfloat |
- cstring |
+ cint #103 |
+ cfloat #104 |
+ cstring #105 |
  "(" <expressao> ")" |
  "+" <fator> |
  "-" <fator> ;
