@@ -258,6 +258,8 @@ public class CompileController {
         } catch (SemanticError e) {
            // trata erros semânticos na parte 4
         }
+        
+        System.out.println(semantico.codigo);
     }
     
     /**
