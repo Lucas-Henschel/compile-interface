@@ -9,6 +9,8 @@ import gals.exceptions.SemanticError;
 import gals.exceptions.SyntaticError;
 import handler.FileHandler;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -256,10 +258,19 @@ public class CompileController {
             
             compileView.getjMessages().setText(sb.toString());
         } catch (SemanticError e) {
-           // trata erros semânticos na parte 4
+            String input = compileView.getjEditor().getText();
+            
+            int pos = e.getPosition();
+            int line = GalsUtils.getLineFromPosition(input, pos);
+            
+            String msg = e.getMessage();
+           
+            String messageToShow = String.format("linha %d: %s", line, msg);
+           
+            compileView.getjMessages().setText(messageToShow);
         }
         
-        System.out.println(semantico.codigo);
+        saveObjectCode(semantico.codigo);
     }
     
     /**
@@ -284,6 +295,26 @@ public class CompileController {
         } catch (IOException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao ler o arquivo: " + ex.getMessage());
+        }
+    }
+    
+    private void saveObjectCode(StringBuilder fileContent) {
+        File originalFile = fileHandler.getFile();
+        if (!originalFile.exists()) return;
+
+        File parentDir = originalFile.getParentFile();
+
+        String fileName = originalFile.getName();
+        int extensionIndex = fileName.lastIndexOf('.');
+        String baseName = (extensionIndex > 0) ? fileName.substring(0, extensionIndex) : fileName;
+
+        File newFile = new File(parentDir, baseName + ".il");
+
+        try (FileWriter writer = new FileWriter(newFile)) {
+            writer.write(fileContent.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar o arquivo código objeto: " + ex.getMessage());
         }
     }
 }
