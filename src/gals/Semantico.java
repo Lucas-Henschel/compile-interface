@@ -1,17 +1,22 @@
 package gals;
 
 import gals.exceptions.SemanticError;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 public class Semantico implements Constants
 {
     private Stack<String> pilhaTipos = new Stack<>();
     private Stack<String> operadorRelacional = new Stack<>();
-    private Stack<String> tipo = new Stack<>();
-    private Stack<String> listaIdentificador = new Stack<>();
     private Stack<String> pilhaRotulos = new Stack<>();
-    private Stack<String> tabelaSimbolos = new Stack<>();
     
+    private List<String> listaIdentificadores = new ArrayList<>();
+    private Map<String, String> tabelaSimbolos = new HashMap<>();
+    
+    private String tipo = "";
     public StringBuilder codigo = new StringBuilder();
     
     public void executeAction(int action, Token token)	throws SemanticError
@@ -140,9 +145,8 @@ public class Semantico implements Constants
     }
     
     private void acao118() {
-        codigo.append(" call void [mscorlib]System.Console::Write(")
-            .append("\n")
-            .append(")\n");
+        codigo.append(" call void [mscorlib]System.Console::WriteLine()")
+            .append("\n");
     }
     
     private void acao115() {
@@ -232,6 +236,7 @@ public class Semantico implements Constants
                 codigo.append("cgt \n");
                 break;
             case "~=":
+                codigo.append("ceq \n");
                 codigo.append("ldc.i4.1 \n");
                 codigo.append("xor \n");
                 break;
@@ -262,48 +267,53 @@ public class Semantico implements Constants
     }
     
     private void acao120(Token token) {
-        tipo.push(token.getLexeme());
+        tipo = token.getLexeme();
     }
     
     private void acao121(Token token) {
-        listaIdentificador.push(token.getLexeme());
+        listaIdentificadores.add(token.getLexeme());
     }
     
     private void acao119() {
-        while (!listaIdentificador.empty()) {
-            tabelaSimbolos.push(listaIdentificador.pop());
-        
-            String tipoLocal = tipo.pop();
+        for (String id : listaIdentificadores) {
+            String tipoIL = "";
 
-            switch (tipoLocal) {
+            switch (tipo) {
                 case "int":
-                    tabelaSimbolos.push("int64");
+                    tipoIL = "int64";
                     break;
                 case "float":
-                    tabelaSimbolos.push("float64");
+                    tipoIL = "float64";
                     break;
                 case "string":
                 case "bool":
-                   tabelaSimbolos.push(tipoLocal);
+                   tipoIL = tipo;
+                   break;
             }
+            
+            tabelaSimbolos.put(id, tipoIL);
         }
         
         codigo.append(".locals (");
         
-        while (!tabelaSimbolos.empty()) {
-            String type = tabelaSimbolos.pop();
-            String id = tabelaSimbolos.pop();
-            
-            codigo.append(type).append(" ").append(id);
-            
-            if (!tabelaSimbolos.isEmpty()) {
-                codigo.append(",");
+        int count = 0;
+        int total = tabelaSimbolos.size();
+
+        for (Map.Entry<String, String> entry : tabelaSimbolos.entrySet()) {
+            String id = entry.getKey();
+            String tipoIL = entry.getValue();
+
+            codigo.append(tipoIL).append(" ").append(id);
+
+            count++;
+            if (count < total) {
+                codigo.append(", ");
             }
         }
         
         codigo.append(")");
         
-        listaIdentificador.clear();
+        listaIdentificadores.clear();
     }
     
     private void acao122() {
@@ -313,32 +323,43 @@ public class Semantico implements Constants
             codigo.append("conv.i8 \n");
         }
         
-        String id = listaIdentificador.pop();
+        String id = listaIdentificadores.getLast();
+        String endereco = tabelaSimbolos.get(id);
         
         codigo.append("stloc ")
-            .append(id)
+            .append(endereco)
             .append("\n");
         
-        listaIdentificador.clear();
+        listaIdentificadores.clear();
     }
     
-    private void acao123(Token token) {
+    private void acao123(Token token) throws SemanticError {
         String id = token.getLexeme();
+        String type = tabelaSimbolos.get(id);
         
-        if (id.equals("bool")) {
-            // VERIFICAR COMO RETORNAR A MENSAGEM DE ERRO
-            codigo.append("ret \n");
-        } else {
-            
+        if (type.equals("bool")) {
+            throw new SemanticError(id + "inválido para comando de entrada", token.getPosition());
         }
+        
+        codigo.append("call string [mscorlib]System.Console::ReadLine() \n");
+        
+        switch (type) {
+            case "int64":
+                codigo.append("call int64 [mscorlib]System.Int64::Parse(string) \n");
+                break;
+            case "float64":
+                codigo.append("call float64 [mscorlib]System.Double::Parse(string) \n");
+                break;
+        }
+        
+        codigo.append("stloc ").append(id).append("\n");
     }
     
     private void acao124() {
         codigo.append("ldstr \n");
         
-        codigo.append("call void [mscorlib]System.Console::Write(")
-            .append("string")
-            .append(")\n");
+        codigo.append("call void [mscorlib]System.Console::Write(string)")
+            .append("\n");
     }
     
     private void acao130(Token token) {
