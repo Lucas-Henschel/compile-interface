@@ -216,6 +216,7 @@ public class CompileController {
             sintatico.parse(lexico, semantico);
 
             compileView.getjMessages().setText("programa compilado com sucesso");
+            saveObjectCode(semantico.codigo);
         } catch (LexicalError e) {
             String input = compileView.getjEditor().getText();
             
@@ -269,8 +270,6 @@ public class CompileController {
            
             compileView.getjMessages().setText(messageToShow);
         }
-                
-        saveObjectCode(semantico.codigo);
     }
     
     /**
