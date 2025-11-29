@@ -9,12 +9,12 @@ import java.util.Stack;
 
 public class Semantico implements Constants
 {
-    private Stack<String> pilhaTipos = new Stack<>();
-    private Stack<String> operadorRelacional = new Stack<>();
-    private Stack<String> pilhaRotulos = new Stack<>();
+    private final Stack<String> pilhaTipos = new Stack<>();
+    private final Stack<String> operadorRelacional = new Stack<>();
+    private final Stack<String> pilhaRotulos = new Stack<>();
     
-    private List<String> listaIdentificadores = new ArrayList<>();
-    private Map<String, String> tabelaSimbolos = new HashMap<>();
+    private final List<String> listaIdentificadores = new ArrayList<>();
+    private final Map<String, String> tabelaSimbolos = new HashMap<>();
     
     private String tipo = "";
     public StringBuilder codigo = new StringBuilder();
@@ -99,6 +99,21 @@ public class Semantico implements Constants
                 break;
             case 130:
                 acao130(token);
+                break;
+            case 125:
+                acao125(token);
+                break;
+            case 127:
+                acao127();
+                break;
+            case 126:
+                acao126();
+                break;
+            case 128:
+                acao128();
+                break;
+            case 129:
+                acao129(token);
                 break;
         }
     }
@@ -324,10 +339,9 @@ public class Semantico implements Constants
         }
         
         String id = listaIdentificadores.getLast();
-        String endereco = tabelaSimbolos.get(id);
         
         codigo.append("stloc ")
-            .append(endereco)
+            .append(id)
             .append("\n");
         
         listaIdentificadores.clear();
@@ -363,6 +377,67 @@ public class Semantico implements Constants
     }
     
     private void acao130(Token token) {
-        pilhaTipos.push(token.getLexeme());
+        String id = token.getLexeme();
+        String type = tabelaSimbolos.get(id);
+        
+        pilhaTipos.push(type);
+        
+        codigo.append("ldloc ").append(id).append("\n");
+        
+        if (type.equals("int64")) {
+            codigo.append("conv.r8 \n");
+        }
+    }
+    
+    private void acao125(Token token) throws SemanticError {
+        String type = pilhaTipos.pop();
+        
+        if (!type.equals("bool")) {
+            throw new SemanticError("expressão incompatível em comando de seleção", token.getPosition());
+        }
+        
+        String rotulo1 = "novo_rotulo1";
+                
+        codigo.append("brfalse ").append(rotulo1).append("\n");
+        
+        pilhaRotulos.push(rotulo1);
+    }
+    
+    private void acao127() {
+        String rotulo2 = "novo_rotulo2";
+        
+        codigo.append("br ").append(rotulo2).append("\n");
+        
+        String rotulo1 = pilhaRotulos.pop();
+        
+        codigo.append(rotulo1).append(":").append("\n");
+        
+        pilhaRotulos.push(rotulo2);
+    }
+    
+    private void acao126() {
+        String rotulo = pilhaRotulos.pop();
+        
+        codigo.append(rotulo).append(":").append("\n");
+    }
+    
+    private void acao128() {
+        String novoRotulo = "novo_rotulo";
+        
+        codigo.append(novoRotulo).append(":").append("\n");
+        
+        pilhaRotulos.push(novoRotulo);
+    }
+    
+    private void acao129(Token token) throws SemanticError {
+        String type = pilhaTipos.pop();
+        
+        if (!type.equals("bool")) {
+            throw new SemanticError("expressão incompatível em comando de repetição", token.getPosition());
+        }
+        
+        String rotulo = pilhaRotulos.pop();
+        
+        codigo.append("brfalse ").append(rotulo).append("\n");
     }
 }
