@@ -19,6 +19,16 @@ public class Semantico implements Constants
     private String tipo = "";
     public StringBuilder codigo = new StringBuilder();
     
+    private int contadorRotulos = 1;
+    
+    public StringBuilder getCodigo() {
+        return codigo;
+    }
+    
+    private String gerarNovoRotulo() {
+        return "L" + (contadorRotulos++);
+    }
+    
     public void executeAction(int action, Token token)	throws SemanticError
     {
         switch (action) {
@@ -116,10 +126,6 @@ public class Semantico implements Constants
                 acao129(token);
                 break;
         }
-    }
-    
-    public StringBuilder getCodigo() {
-        return codigo;
     }
     
     private void acao100() {
@@ -406,7 +412,7 @@ public class Semantico implements Constants
             throw new SemanticError("expressão incompatível em comando de seleção", token.getPosition());
         }
         
-        String rotulo1 = "novo_rotulo1";
+        String rotulo1 = gerarNovoRotulo();
                 
         codigo.append("brfalse ").append(rotulo1).append("\n");
         
@@ -414,7 +420,7 @@ public class Semantico implements Constants
     }
     
     private void acao127() {
-        String rotulo2 = "novo_rotulo2";
+        String rotulo2 = gerarNovoRotulo();
         
         codigo.append("br ").append(rotulo2).append("\n");
         
@@ -432,7 +438,7 @@ public class Semantico implements Constants
     }
     
     private void acao128() {
-        String novoRotulo = "novo_rotulo";
+        String novoRotulo = gerarNovoRotulo();
         
         codigo.append(novoRotulo).append(":").append("\n");
         
