@@ -299,7 +299,7 @@ public class CompileController {
     
     private void saveObjectCode(StringBuilder fileContent) {
         File originalFile = fileHandler.getFile();
-        if (!originalFile.exists()) return;
+        if (originalFile == null || !originalFile.exists()) return;
 
         File parentDir = originalFile.getParentFile();
 
