@@ -105,7 +105,7 @@ public class Semantico implements Constants
                 acao123(token);
                 break;
             case 124:
-                acao124();
+                acao124(token);
                 break;
             case 130:
                 acao130(token);
@@ -385,8 +385,8 @@ public class Semantico implements Constants
         codigo.append("stloc ").append(id).append("\n");
     }
     
-    private void acao124() {
-        codigo.append("ldstr \n");
+    private void acao124(Token token) {
+        codigo.append("ldstr ").append(token.getLexeme()).append(" \n");
         
         codigo.append("call void [mscorlib]System.Console::Write(string)")
             .append("\n");
